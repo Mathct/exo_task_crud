@@ -35,7 +35,7 @@ function showTask($alltasks)
         
 }
 
-function infoModal($title, $description, $status, $priority)
+function infoModal($title, $description, $status, $priority, $date_ex, $date_create, $date_update)
 {
     
     $return = '';
@@ -62,10 +62,11 @@ function infoModal($title, $description, $status, $priority)
 
 
     $return .= "<i class='close fa-regular fa-circle-xmark'></i>
-                <h2>{$title}</h2>
-                <div>{$description}</div>
+                <div class='date'><h2>{$title}</h2><span> A faire pour: {$date_ex}</span></div>
+                <div>Description: {$description}</div>
                 $statusmodal
-                $prioritymodal";
+                $prioritymodal
+                <div class='date'><span> Date de création: {$date_create}</span><span>Dernière modification: {$date_update}</span></div>";
 
     return $return;
         

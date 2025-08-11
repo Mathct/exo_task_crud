@@ -8,6 +8,7 @@ main{
 }
 
 header{
+    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -16,17 +17,31 @@ header{
     color: white;
 }
 
+#create{
+    color: white;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    padding: 10px;
+    cursor: pointer;
+    margin-right: 30px;
+}
 
+#create:hover {
+    color: red;
+}
 
 footer
 {
-    
+    position: fixed;
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 10px;
     background-color: black;
     color: white;
+    bottom: 0;
+    width: 100%;
 }
 
 .tasks {
@@ -34,7 +49,7 @@ footer
     flex-wrap: wrap;
     justify-content: space-around;
     gap:20px;
-    margin: 20px;
+    margin: 20px 20px 100px 20px;
     
 }
 
@@ -102,7 +117,17 @@ footer
     left: 0;
 }
 
-.close {
+#modalcreate_container {
+    display: none;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.6); /* fond noir semi-transparent */
+    top: 0;
+    left: 0;
+}
+
+.close, .closecreate {
     position: absolute;
     top: 5px;
     right: 15px;
@@ -116,6 +141,92 @@ footer
 
 .close:hover {
     color: red;
+}
+
+.date{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    align-items: end;
+}
+
+/* FORMULAIRE*/
+
+/* Conteneur du formulaire */
+form {
+    
+    display: flex;
+    flex-direction: column;
+    padding: 25px 30px;
+    border-radius: 12px;
+    width: 350px;
+    position: relative;
+    left: 50%;      
+    transform: translateX(-50%);
+}
+
+/* Espacement entre les champs */
+form div {
+    margin-bottom: 15px;
+}
+
+/* Labels */
+label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: bold;
+    color: #333;
+}
+
+/* Champs de saisie */
+input[type="text"],
+input[type="date"],
+textarea,
+select {
+    width: 100%;
+    padding: 8px 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Effet focus */
+input:focus,
+textarea:focus,
+select:focus {
+    border-color: #4a90e2;
+    box-shadow: 0 0 5px rgba(74, 144, 226, 0.4);
+    outline: none;
+}
+
+/* Boutons */
+button {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+button[type="submit"] {
+    background: #4a90e2;
+    color: white;
+}
+
+button[type="submit"]:hover {
+    background: #357ABD;
+}
+
+button[type="reset"] {
+    background: #e0e0e0;
+    color: #333;
+    margin-left: 10px;
+}
+
+button[type="reset"]:hover {
+    background: #c7c7c7;
 }
 
 

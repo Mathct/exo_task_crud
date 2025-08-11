@@ -13,6 +13,9 @@ $title = "";
 $description = "";
 $status = "";
 $priority = "";
+$date_ex = "";
+$date_create = "";
+$date_update = "";
 
 try{
 
@@ -41,6 +44,7 @@ try{
 }
 
 
+// SHOW ONE TASK
 
 if(isset($_GET['task']))
 { 
@@ -52,9 +56,59 @@ if(isset($_GET['task']))
             $description = $task['description'];
             $status = $task['status'];
             $priority = $task['priority'];
+            $date_ex = $task['due_date'];
+            $date_create = $task['created_at'];
+            $date_update = $task['updated_at'];
             
         }
     }
+}
+
+
+// CREATE
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST')
+{
+    // Traitement du formulaire
+
+    $title = $_POST['title'] ?? '';
+    $description = $_POST['description'] ?? '';
+    $status = 'à faire';
+    $priority = $_POST['priority'] ?? '';
+    $date_ex= $_POST['date'] ?? '';
+    $date_create = date('Y-m-d H:i:s');
+    $date_update = date('Y-m-d H:i:s');
+
+    //verification vide + nettoyage + gestion des erreurs
+
+
+    // envoi des données
+
+    // on lance la connexion à la BD
+    $pdo = dbConnexion();
+
+    // on va injecter les données dans le BD
+
+    $sql = "INSERT INTO tasks (title, description, status, priority, due_date, created_at, updated_at) VALUES (:title, :description, :status, :priority, :due_date, :created_at, :updated_at)";
+
+    $newTask = $pdo->prepare($sql);
+
+    $newTask->execute([
+    ':title'  => $title,
+    ':description'      => $description,
+    ':status'      => $status,
+    ':priority'      => $priority,
+    ':due_date'      => $date_ex,
+    ':created_at'      => $date_create,
+    ':updated_at'      => $date_update,
+    
+    ]);
+
+    //Redirection pour éviter le re-post lors du refresh
+    header('Location: ' . $_SERVER['REQUEST_URI']);
+    exit(); 
+
+    
 }
 
 
@@ -76,7 +130,7 @@ include "header.php"
 
     <div id="modal_container">
         <div id='modal' class="modal">
-            <?php echo infoModal($title, $description, $status, $priority); ?>    
+            <?php echo infoModal($title, $description, $status, $priority, $date_ex, $date_create, $date_update); ?>    
         </div>
     </div>
 
@@ -92,6 +146,50 @@ include "header.php"
     <?php
     }
     ?>
+
+    <div id="modalcreate_container">
+        <div id='modalcreate' class="modal">
+        <i class='closecreate fa-regular fa-circle-xmark'></i>
+        <h2>Créer une tâche</h2>
+
+        <form action="" method="POST">
+            
+            <div>
+                <label for="title">Titre :</label>
+                <input type="text" id="title" name="title" maxlength="255" required>
+            </div>
+            
+
+            <div>
+            <label for="description">Description :</label>
+            <textarea id="description" name="description"></textarea>
+            </div>
+
+            <div>
+            <label for="date">Date :</label>
+            <input type="date" id="date" name="date" value="<?php echo date('Y-m-d'); ?>" required>
+            </div>
+
+            <div>
+            <label for="priority">Priorité :</label>
+            <select id="priority" name="priority" required>
+            <option value="">-- Choisir --</option>
+            <option value="basse">basse</option>
+            <option value="moyenne">moyenne</option>
+            <option value="haute">haute</option>
+            </select>
+            </div>
+
+            <div>
+            <button type="submit">Envoyer</button>
+            <button type="reset">Réinitialiser</button>
+            </div>
+            
+        </form>
+                
+        </div>
+    </div>
+
 
 </main>
 
