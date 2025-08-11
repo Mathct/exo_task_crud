@@ -3,7 +3,6 @@
 require_once 'config/database.php';
 require_once 'function.php';
 
-session_start();
 
 $alltasks = [];
 $errors = [];
@@ -16,6 +15,7 @@ $priority = "";
 $date_ex = "";
 $date_create = "";
 $date_update = "";
+
 
 try{
 
@@ -52,6 +52,7 @@ if(isset($_GET['task']))
     {
         if('task_'.$task['id'] == $_GET['task'])
         {
+            $id = $task['id'];
             $title = $task['title'];
             $description = $task['description'];
             $status = $task['status'];
@@ -59,7 +60,8 @@ if(isset($_GET['task']))
             $date_ex = $task['due_date'];
             $date_create = $task['created_at'];
             $date_update = $task['updated_at'];
-            
+
+                        
         }
     }
 }
@@ -79,13 +81,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
     $date_create = date('Y-m-d H:i:s');
     $date_update = date('Y-m-d H:i:s');
 
-    //verification vide + nettoyage + gestion des erreurs
+    // A FAIRE: verification vide + nettoyage + gestion des erreurs
 
 
-    // envoi des données
+    // ENVOI DES DONNEES
 
-    // on lance la connexion à la BD
-    $pdo = dbConnexion();
+    // pas besoin de se connecter la BD deja fait dans l'affichage des tasks
+    // $pdo = dbConnexion();
 
     // on va injecter les données dans le BD
 
@@ -128,25 +130,14 @@ include "header.php"
         <?php echo showTask($alltasks); ?>
     </section>
 
+    <!-- MODAL SHOW ONE -->
     <div id="modal_container">
         <div id='modal' class="modal">
-            <?php echo infoModal($title, $description, $status, $priority, $date_ex, $date_create, $date_update); ?>    
+            <?php echo infoModal($id, $title, $description, $status, $priority, $date_ex, $date_create, $date_update); ?>    
         </div>
     </div>
 
-
-    <?php if($title != "") {
-    ?>
-        <script>
-            //je place ce script ici afin d'être sur que ma modal soit créée dans le DOM
-            var modal_container = document.getElementById('modal_container');
-            modal_container.style.display = "block";
-        </script>
-
-    <?php
-    }
-    ?>
-
+    <!-- MODALE CREATE -->
     <div id="modalcreate_container">
         <div id='modalcreate' class="modal">
         <i class='closecreate fa-regular fa-circle-xmark'></i>
@@ -159,7 +150,6 @@ include "header.php"
                 <input type="text" id="title" name="title" maxlength="255" required>
             </div>
             
-
             <div>
             <label for="description">Description :</label>
             <textarea id="description" name="description"></textarea>
@@ -191,8 +181,72 @@ include "header.php"
     </div>
 
 
+    <!-- MODALE UPDATE -->
+    <div id="modalupdate_container">
+        <div id='modalmodify' class="modal">
+        <i class='closeupdate fa-regular fa-circle-xmark'></i>
+        <h2>Modifier la tâche</h2>
+
+        <form action="update.php" method="GET">
+            
+            <div>
+                <input style="display: none;" type="text" id="id" name="id" value="<?php echo $id; ?>" required>
+            </div>
+
+            <div>
+                <label for="title">Titre :</label>
+                <input type="text" id="title" name="title" maxlength="255" value="<?php echo $title; ?>" required>
+            </div>
+            
+            <div>
+            <label for="description">Description :</label>
+            <textarea id="description" name="description"><?php echo htmlspecialchars($description); ?></textarea>
+            </div>
+
+            <div>
+            <label for="date">Date :</label>
+            <input type="date" id="date" name="date" value="<?php echo $date_ex; ?>" required>
+            </div>
+
+            <div>
+            <label for="priority">Priorité :</label>
+            <select id="priority" name="priority" value="<?php echo $priority; ?> required>
+            <option value=">-- Choisir --</option>
+            <option value="basse">basse</option>
+            <option value="moyenne">moyenne</option>
+            <option value="haute">haute</option>
+            </select>
+            </div>
+
+            <div>
+            <button type="submit">Modifier</button>
+            </div>
+            
+        </form>
+                
+        </div>
+    </div>
+
+
 </main>
 
 <?php
 include "footer.php"
 ?>
+
+
+<!-- SCRIPT JS -->
+
+<?php if($title != "") {
+    ?>
+        <script>
+            //je place ce script ici afin d'être sur que ma modal soit créée dans le DOM
+            var modal_container = document.getElementById('modal_container');
+            modal_container.style.display = "block";
+        </script>
+
+    <?php
+    }
+?>
+
+

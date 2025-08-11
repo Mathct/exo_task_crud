@@ -35,7 +35,7 @@ function showTask($alltasks)
         
 }
 
-function infoModal($title, $description, $status, $priority, $date_ex, $date_create, $date_update)
+function infoModal($id, $title, $description, $status, $priority, $date_ex, $date_create, $date_update)
 {
     
     $return = '';
@@ -62,11 +62,15 @@ function infoModal($title, $description, $status, $priority, $date_ex, $date_cre
 
 
     $return .= "<i class='close fa-regular fa-circle-xmark'></i>
-                <div class='date'><h2>{$title}</h2><span> A faire pour: {$date_ex}</span></div>
-                <div>Description: {$description}</div>
-                $statusmodal
-                $prioritymodal
-                <div class='date'><span> Date de création: {$date_create}</span><span>Dernière modification: {$date_update}</span></div>";
+            <div class='date'><h2>{$title}</h2><span> A faire pour: {$date_ex}</span></div>
+            <div>Description: {$description}</div>
+            $statusmodal
+            $prioritymodal
+            <div class='date'><span> Date de création: {$date_create}</span><span>Dernière modification: {$date_update}</span></div>
+            <div class='modify'>
+                <i class='btn-modify modify_icon fa-solid fa-pen-to-square'></i>
+                <a href='delete.php?id={$id}' class='btn-delete modify_icon fa-solid fa-trash' onclick=\"return confirm('Êtes-vous sûr de vouloir supprimer cet élément ?');\"></a>
+            </div>";
 
     return $return;
         
