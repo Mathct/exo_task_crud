@@ -62,7 +62,7 @@ if(isset($_GET['task']))
 
 
 
-<!-- PARTIE AFFICHAGE -->
+<!-- PARTIE HTML -->
 
 
 <?php
@@ -84,7 +84,7 @@ include "header.php"
     <?php if($title != "") {
     ?>
         <script>
-            //je place ce script ici afin d'être sur que ma modale soit créé dans le DOM
+            //je place ce script ici afin d'être sur que ma modal soit créée dans le DOM
             var modal_container = document.getElementById('modal_container');
             modal_container.style.display = "block";
         </script>

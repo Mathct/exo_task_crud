@@ -67,10 +67,6 @@ function infoModal($title, $description, $status, $priority)
                 $statusmodal
                 $prioritymodal";
 
-
-                    
-    
-
     return $return;
         
 }
