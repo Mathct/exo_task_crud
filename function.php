@@ -69,7 +69,7 @@ function infoModal($id, $title, $description, $status, $priority, $date_ex, $dat
             <div class='date'><span> Date de création: {$date_create}</span><span>Dernière modification: {$date_update}</span></div>
             <div class='modify'>
                 <i class='btn-modify modify_icon fa-solid fa-pen-to-square'></i>
-                <a href='delete.php?id={$id}' class='btn-delete modify_icon fa-solid fa-trash' onclick=\"return confirm('Êtes-vous sûr de vouloir supprimer cet élément ?');\"></a>
+                <a href='delete.php?id={$id}' class='btn-delete modify_icon fa-solid fa-trash' onclick=\"return confirm('Êtes-vous sûr de vouloir supprimer cette tâche ?');\"></a>
             </div>";
 
     return $return;

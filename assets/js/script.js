@@ -33,7 +33,7 @@ modalupdate_container.addEventListener('click', () => {
 
 modals.forEach(modal => {
     modal.addEventListener('click', (event) => {
-        event.stopPropagation(); //Empêche la propagation du clic
+        event.stopPropagation(); 
     });
 });
 
