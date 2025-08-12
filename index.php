@@ -210,11 +210,11 @@ include "header.php"
 
             <div>
             <label for="priority">Priorité :</label>
-            <select id="priority" name="priority" value="<?php echo $priority; ?> required>
-            <option value=">-- Choisir --</option>
-            <option value="basse">basse</option>
-            <option value="moyenne">moyenne</option>
-            <option value="haute">haute</option>
+            <select id="priority" name="priority" required>
+                <option value="">-- Choisir --</option>
+                <option value="basse" <?php if ($priority === 'basse') echo 'selected'; ?>>basse</option>
+                <option value="moyenne" <?php if ($priority === 'moyenne') echo 'selected'; ?>>moyenne</option>
+                <option value="haute" <?php if ($priority === 'haute') echo 'selected'; ?>>haute</option>
             </select>
             </div>
 
